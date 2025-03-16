@@ -1,15 +1,12 @@
 import type React from "react";
 import type {Metadata} from "next";
 
-import {Inter} from "next/font/google";
-
 import "./globals.css";
-import {Header} from "@/components/header/header";
-import {Footer} from "@/components/footer";
 import {AuthProvider} from "@/provider/auth-provider";
 import {createClient} from "@/lib/supabase/server";
 import {cn} from "@/lib/utils";
 import {fontSans, siteConfig} from "@/lib/config";
+import {ThemeProvider} from "@/provider/theme-provider";
 
 export const metadata: Metadata = {
   applicationName: siteConfig.name,
@@ -57,7 +54,9 @@ export default async function RootLayout({
   return (
     <html lang="es-AR">
       <body className={cn("bg-background min-h-screen font-sans antialiased", fontSans.variable)}>
-        <AuthProvider user={user}>{children}</AuthProvider>
+        <ThemeProvider>
+          <AuthProvider user={user}>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

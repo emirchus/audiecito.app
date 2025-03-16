@@ -17,13 +17,13 @@ export async function POST(request: Request) {
     // Iniciar sesión
     const session = await signInWithEmailAndPasswordAction(email, password);
 
-    console.log(session);
+    if (typeof session === "string") {
+      return NextResponse.json({error: session}, {status: 401});
+    }
 
     // Devolver la sesión
     return NextResponse.json({success: true, session});
   } catch (error) {
-    console.error("Error al iniciar sesión:", error);
-
     return NextResponse.json({error: "Error al iniciar sesión"}, {status: 500});
   }
 }

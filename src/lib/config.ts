@@ -1,4 +1,4 @@
-import {Geist as font} from "next/font/google";
+import {Geist_Mono as font} from "next/font/google";
 
 export const fontSans = font({
   subsets: ["latin"],
@@ -7,10 +7,10 @@ export const fontSans = font({
 });
 
 export const siteConfig = {
-  name: "Audonaciones",
-  url: "https://audonaciones.com",
-  ogImage: "https://audonaciones.com/og.png",
-  description: "Doná y enviá un mensaje de audio",
+  name: "AudacitoApp",
+  url: "https://audacito.app",
+  ogImage: "https://audacito.app/og.png",
+  description: "Doná y enviás un mensaje de audio",
   links: {
     twitter: "",
     github: "",
