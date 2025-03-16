@@ -1,11 +1,11 @@
 export async function initMercadoPago() {
   // Dynamic import of Mercado Pago SDK
-  const {loadMercadoPago} = await import("@mercadopago/sdk-js");
+  const { loadMercadoPago } = await import("@mercadopago/sdk-js");
 
   try {
     const mp = await loadMercadoPago();
 
-    console.log("SDK de Mercado Pago inicializado correctamente");
+    console.info("SDK de Mercado Pago inicializado correctamente");
 
     return mp;
   } catch (error) {

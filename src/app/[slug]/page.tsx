@@ -1,5 +1,5 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {DonationForm} from "@/components/donation-form";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DonationForm } from "@/components/donation-form";
 
 export default function DonationPage() {
   return (

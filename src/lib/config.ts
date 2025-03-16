@@ -1,9 +1,9 @@
-import {Geist_Mono as font} from "next/font/google";
+import { Geist_Mono as font } from "next/font/google";
 
 export const fontSans = font({
   subsets: ["latin"],
   weight: ["400"],
-  variable: "--font-sans",
+  variable: "--font-geist-sans",
 });
 
 export const siteConfig = {

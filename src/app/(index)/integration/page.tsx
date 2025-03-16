@@ -1,8 +1,8 @@
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
-import {getSession} from "@/lib/auth";
-import {getIntegrationStatus} from "@/lib/integration";
-import {IntegrationPageClient} from "@/app/(index)/integration/components/integration-page-client";
+import { getSession } from "@/lib/auth";
+import { getIntegrationStatus } from "@/lib/integration";
+import { IntegrationPageClient } from "@/app/(index)/integration/components/integration-page-client";
 
 export default async function IntegrationPage() {
   // Verificar si el usuario está autenticado

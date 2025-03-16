@@ -1,16 +1,16 @@
 "use client";
 
-import type {Donation} from "@/lib/supabase";
+import type { Donation } from "@/lib/supabase";
 
-import {useEffect, useRef, useState} from "react";
-import {motion, AnimatePresence} from "framer-motion";
-import {Heart} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart } from "lucide-react";
 
 interface DonationAlertProps {
   donation: Donation;
 }
 
-export function DonationAlert({donation}: DonationAlertProps) {
+export function DonationAlert({ donation }: DonationAlertProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [audioEnded, setAudioEnded] = useState(false);
@@ -44,11 +44,11 @@ export function DonationAlert({donation}: DonationAlertProps) {
   return (
     <AnimatePresence>
       <motion.div
-        animate={{y: 0, opacity: 1}}
+        animate={{ y: 0, opacity: 1 }}
         className="mx-auto w-full max-w-md overflow-hidden rounded-lg bg-linear-to-r from-blue-600 to-purple-600 shadow-lg"
-        exit={{y: 100, opacity: 0}}
-        initial={{y: -100, opacity: 0}}
-        transition={{duration: 0.5}}
+        exit={{ y: 100, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
+        transition={{ duration: 0.5 }}
       >
         <div className="p-6 text-white">
           <div className="mb-4 flex items-center justify-between">
@@ -83,7 +83,7 @@ export function DonationAlert({donation}: DonationAlertProps) {
                   <div className="flex space-x-1">
                     {[...Array(5)].map((_, i) => (
                       <div
-                        key={i}
+                        key={_}
                         className="animate-sound-wave h-8 w-2 rounded-full bg-white"
                         style={{
                           animationDelay: `${i * 0.2}s`,

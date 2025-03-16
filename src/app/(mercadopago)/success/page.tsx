@@ -1,7 +1,7 @@
 import Link from "next/link";
-import {CheckCircle} from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {SuccessDetails} from "@/components/success-details";
+import { SuccessDetails } from "@/components/success-details";
 
 export default function SuccessPage() {
   return (
@@ -20,7 +20,7 @@ export default function SuccessPage() {
           <div className="mb-4 flex justify-center">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
-          <CardTitle className="text-2xl font-bold text-primary">¡Gracias!</CardTitle>
+          <CardTitle className="text-primary text-2xl font-bold">¡Gracias!</CardTitle>
           <CardDescription>Tu donación fue exitosa</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 text-center">
@@ -31,7 +31,7 @@ export default function SuccessPage() {
 
           <SuccessDetails />
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Se ha enviado un correo de confirmación a tu dirección de email.
           </p>
         </CardContent>

@@ -1,6 +1,6 @@
 "use server";
 
-import {createClient} from "./supabase/server";
+import { createClient } from "./supabase/server";
 
 // Agregar la definición del tipo Donation si no existe
 // Agregar al inicio del archivo (después de las importaciones):
@@ -29,7 +29,7 @@ export async function updateDonationStatus(
   try {
     const supabase = await createClient();
     // Primero obtener el estado actual
-    const {data: currentDonation, error: fetchError} = await supabase
+    const { data: currentDonation, error: fetchError } = await supabase
       .from("donations")
       .select("payment_status")
       .eq("id", donationId)
@@ -47,7 +47,7 @@ export async function updateDonationStatus(
     }
 
     // Actualizar el estado
-    const {error: updateError} = await supabase
+    const { error: updateError } = await supabase
       .from("donations")
       .update({
         payment_id: paymentId,
@@ -63,7 +63,7 @@ export async function updateDonationStatus(
 
     // Registrar el cambio en el historial
     if (currentDonation) {
-      const {error: historyError} = await supabase.from("donation_status_history").insert({
+      const { error: historyError } = await supabase.from("donation_status_history").insert({
         donation_id: donationId,
         previous_status: currentDonation.payment_status,
         new_status: status,
@@ -88,11 +88,11 @@ export async function updateDonationStatus(
 export async function getDonationStatusHistory(donationId: string) {
   try {
     const supabase = await createClient();
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("donation_status_history")
       .select("*")
       .eq("donation_id", donationId)
-      .order("created_at", {ascending: false});
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error("Error al obtener historial de estados:", error);
@@ -114,7 +114,7 @@ export async function getDonationStatusHistory(donationId: string) {
 export async function getDonationById(donationId: string) {
   try {
     const supabase = await createClient();
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("donations")
       .select("*")
       .eq("id", donationId)
@@ -138,7 +138,7 @@ export async function getDonationById(donationId: string) {
 export async function getDonationByExternalReference(externalReference: string) {
   try {
     const supabase = await createClient();
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("donations")
       .select("*")
       .eq("external_reference", externalReference)
@@ -162,10 +162,10 @@ export async function getDonationByExternalReference(externalReference: string) 
 export async function getAllDonations() {
   try {
     const supabase = await createClient();
-    const {data, error} = await supabase
+    const { data, error } = await supabase
       .from("donations")
       .select("*")
-      .order("created_at", {ascending: false});
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error("Error al obtener todas las donaciones:", error);
@@ -186,7 +186,7 @@ export async function uploadAudio(audioBlob: Blob): Promise<string | null> {
   try {
     const supabase = await createClient();
     const fileName = `audio_${Date.now()}.wav`;
-    const {data, error} = await supabase.storage
+    const { data: _data, error } = await supabase.storage
       .from("audio-messages")
       .upload(fileName, audioBlob, {
         contentType: "audio/wav",
@@ -199,7 +199,7 @@ export async function uploadAudio(audioBlob: Blob): Promise<string | null> {
     }
 
     // Obtener la URL pública del archivo
-    const {data: publicUrlData} = supabase.storage.from("audio-messages").getPublicUrl(fileName);
+    const { data: publicUrlData } = supabase.storage.from("audio-messages").getPublicUrl(fileName);
 
     return publicUrlData.publicUrl;
   } catch (error) {

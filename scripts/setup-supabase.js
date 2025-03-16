@@ -24,7 +24,7 @@ CREATE TRIGGER update_donations_updated_at
 BEFORE UPDATE ON donations
 FOR EACH ROW
 EXECUTE FUNCTION update_updated_at_column();
-`
+`;
 
 // 2. Configurar políticas de seguridad para la tabla de donaciones
 const setupDonationsPolicies = `
@@ -47,7 +47,7 @@ CREATE POLICY "Allow authenticated users to read all donations" ON donations
 CREATE POLICY "Allow authenticated users to update donations" ON donations
   FOR UPDATE TO authenticated
   USING (true);
-`
+`;
 
 // 3. Configurar el bucket de almacenamiento para archivos de audio
 const setupStorageBucket = `
@@ -64,14 +64,15 @@ CREATE POLICY "Allow anonymous uploads to audio-messages" ON storage.objects
 CREATE POLICY "Allow public read access to audio-messages" ON storage.objects
   FOR SELECT TO anon
   USING (bucket_id = 'audio-messages');
-`
+`;
 
-console.log("Instrucciones para configurar Supabase:")
-console.log("\n1. Crear la tabla de donaciones:")
-console.log(createDonationsTable)
-console.log("\n2. Configurar políticas de seguridad para la tabla de donaciones:")
-console.log(setupDonationsPolicies)
-console.log("\n3. Configurar el bucket de almacenamiento para archivos de audio:")
-console.log(setupStorageBucket)
-console.log("\nEjecuta estos comandos en la interfaz SQL de Supabase o adaptalos según sea necesario.")
-
+console.log("Instrucciones para configurar Supabase:");
+console.log("\n1. Crear la tabla de donaciones:");
+console.log(createDonationsTable);
+console.log("\n2. Configurar políticas de seguridad para la tabla de donaciones:");
+console.log(setupDonationsPolicies);
+console.log("\n3. Configurar el bucket de almacenamiento para archivos de audio:");
+console.log(setupStorageBucket);
+console.log(
+  "\nEjecuta estos comandos en la interfaz SQL de Supabase o adaptalos según sea necesario.",
+);

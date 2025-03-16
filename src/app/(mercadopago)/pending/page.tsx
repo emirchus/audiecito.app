@@ -1,7 +1,7 @@
 import Link from "next/link";
-import {Clock} from "lucide-react";
+import { Clock } from "lucide-react";
 
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {PendingDetails} from "@/components/pending-details";
+import { PendingDetails } from "@/components/pending-details";
 
 export default function PendingPage() {
   return (
@@ -28,7 +28,7 @@ export default function PendingPage() {
 
           <PendingDetails />
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             Recibirás un correo de confirmación una vez que se complete el pago.
           </p>
         </CardContent>

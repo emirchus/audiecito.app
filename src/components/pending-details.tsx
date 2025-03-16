@@ -1,15 +1,15 @@
 "use client";
 
-import type {Donation} from "@/lib/supabase";
+import type { Donation } from "@/lib/supabase";
 
-import {useEffect, useState} from "react";
-import {useSearchParams} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface PendingDetailsProps {
   className?: string;
 }
 
-export function PendingDetails({className}: PendingDetailsProps) {
+export function PendingDetails({ className }: PendingDetailsProps) {
   const searchParams = useSearchParams();
   const [donation, setDonation] = useState<Donation | null>(null);
   const [paymentDetails, setPaymentDetails] = useState({

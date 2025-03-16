@@ -1,12 +1,12 @@
 "use client";
 
-import {useState} from "react";
-import {CheckCircle} from "lucide-react";
+import { useState } from "react";
+import { CheckCircle } from "lucide-react";
 
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function OBSConfigPage() {
   const [copied, setCopied] = useState(false);
@@ -32,7 +32,7 @@ export function OBSConfigPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <p className="mb-2 text-sm text-muted-foreground">URL del Widget:</p>
+              <p className="text-muted-foreground mb-2 text-sm">URL del Widget:</p>
               <div className="flex">
                 <Input readOnly className="flex-1" value={widgetUrl} />
                 <Button className="ml-2" variant="outline" onClick={handleCopy}>
@@ -53,7 +53,7 @@ export function OBSConfigPage() {
 
             <div className="pt-4">
               <h3 className="mb-2 font-medium">Instrucciones:</h3>
-              <ol className="list-inside list-decimal space-y-2 text-sm text-muted-foreground">
+              <ol className="text-muted-foreground list-inside list-decimal space-y-2 text-sm">
                 <li>Abre OBS Studio</li>
                 <li>
                   Agrega una nueva fuente de tipo <b>Navegador</b>
@@ -76,7 +76,7 @@ export function OBSConfigPage() {
             <div className="flex aspect-video items-center justify-center overflow-hidden rounded-md border bg-gray-100">
               <iframe className="h-full w-full" src={widgetUrl} title="Vista previa del widget" />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">
+            <p className="text-muted-foreground mt-2 text-xs">
               Nota: Las alertas aparecerán cuando se reciban donaciones aprobadas.
             </p>
           </CardContent>

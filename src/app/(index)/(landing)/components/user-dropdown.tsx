@@ -1,8 +1,8 @@
 "use client";
-import {User, LogOut} from "lucide-react";
+import { User, LogOut } from "lucide-react";
 import React from "react";
 
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,11 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import {signOutAction} from "@/lib/auth";
-import {useAuth} from "@/provider/auth-provider";
+import { signOutAction } from "@/lib/auth";
+import { useAuth } from "@/provider/auth-provider";
 
 export function UserDropdown() {
-  const {user} = useAuth();
+  const { user } = useAuth();
 
   if (!user) {
     return null;
@@ -24,8 +24,9 @@ export function UserDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="relative h-8 w-8 rounded-full" size="sm" variant="ghost">
-          <User className="h-4 w-4" />
+        <Button className="bg-primary/50" size="sm">
+          <User className="size-4" />
+          <span>Dashboard</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

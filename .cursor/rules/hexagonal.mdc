@@ -1,0 +1,89 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+ # Arquitectura Hexagonal (Ports and Adapters)
+
+## Estructura de Directorios
+
+```
+src/
+├── application/         # Casos de uso / Servicios de aplicación
+├── domain/             # Entidades y reglas de negocio
+│   ├── entities/       # Modelos de dominio
+│   ├── repositories/   # Interfaces de repositorios (ports)
+│   └── services/       # Servicios de dominio
+└── infrastructure/     # Implementaciones concretas (adapters)
+    ├── persistence/    # Implementaciones de repositorios
+    ├── external/       # Servicios externos
+    └── api/           # Controladores y rutas API
+```
+
+## Principios y Reglas
+
+1. **Dominio Central**
+   - El dominio debe ser independiente de frameworks y tecnologías externas
+   - Las entidades de dominio no deben tener dependencias externas
+   - Usar interfaces (ports) para definir comportamientos requeridos
+
+2. **Puertos (Ports)**
+   - Definir interfaces en el dominio que especifican cómo interactuar con el exterior
+   - Ubicar en `domain/repositories/` o `domain/services/` según corresponda
+   - Nombrar interfaces con sufijo `Port` (ej: `UserRepositoryPort`)
+
+3. **Adaptadores (Adapters)**
+   - Implementar interfaces del dominio en la capa de infraestructura
+   - Ubicar en `infrastructure/` según su propósito
+   - Nombrar implementaciones con sufijo `Adapter` (ej: `SupabaseUserRepositoryAdapter`)
+
+4. **Casos de Uso**
+   - Representar operaciones de negocio en `application/`
+   - Depender solo de interfaces del dominio
+   - Nombrar con sufijo `UseCase` (ej: `CreateUserUseCase`)
+
+5. **Inyección de Dependencias**
+   - Inyectar implementaciones concretas en tiempo de ejecución
+   - Configurar dependencias en un punto centralizado
+   - Usar inversión de control para mantener el dominio limpio
+
+## Ejemplos de Implementación
+
+### Domain Port
+```typescript
+// domain/repositories/user-repository.port.ts
+export interface UserRepositoryPort {
+  findById(id: string): Promise<User>;
+  save(user: User): Promise<void>;
+}
+```
+
+### Infrastructure Adapter
+```typescript
+// infrastructure/persistence/supabase-user-repository.adapter.ts
+export class SupabaseUserRepositoryAdapter implements UserRepositoryPort {
+  constructor(private supabase: SupabaseClient) {}
+  
+  async findById(id: string): Promise<User> {
+    // Implementación específica de Supabase
+  }
+}
+```
+
+### Application Use Case
+```typescript
+// application/create-user.use-case.ts
+export class CreateUserUseCase {
+  constructor(private userRepository: UserRepositoryPort) {}
+  
+  async execute(userData: UserData): Promise<User> {
+    // Lógica de aplicación
+  }
+}
+```
+
+## Validación
+- Asegurar que el dominio no tenga dependencias externas
+- Verificar que toda interacción externa pase por ports y adapters
+- Mantener la cohesión dentro de cada capa
+- Respetar la dirección de dependencias hacia el dominio

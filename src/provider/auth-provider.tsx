@@ -1,11 +1,11 @@
 "use client";
 
-import {Session, User} from "@supabase/supabase-js";
-import {useRouter} from "next/navigation";
-import {createContext, useCallback, useContext, useEffect, useState} from "react";
+import { Session, User } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
-import {supabase} from "@/lib/supabase/client";
-import {signOutAction} from "@/lib/auth";
+import { supabase } from "@/lib/supabase/client";
+import { signOutAction } from "@/lib/auth";
 
 export interface AuthContextValue {
   user?: User | null;
@@ -24,7 +24,7 @@ export interface AuthProviderProps {
   user: User | null | undefined;
 }
 
-export function AuthProvider({children, user: cachedUser}: AuthProviderProps) {
+export function AuthProvider({ children, user: cachedUser }: AuthProviderProps) {
   const [user, setUser] = useState<User | null | undefined>(cachedUser);
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
@@ -61,7 +61,7 @@ export function AuthProvider({children, user: cachedUser}: AuthProviderProps) {
 
   useEffect(() => {
     const fetchSession = async () => {
-      const {data} = await supabase.auth.getSession();
+      const { data } = await supabase.auth.getSession();
 
       setSession(data.session);
     };

@@ -7,4 +7,3 @@ Esta aplicación permite recibir donaciones a través de Mercado Pago y almacena
 1. Crea una cuenta en [Supabase](https://supabase.com) y un nuevo proyecto
 2. Obtén las credenciales de tu proyecto (URL y API Key)
 3. Configura las siguientes variables de entorno:
-

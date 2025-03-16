@@ -1,11 +1,9 @@
 "use client";
 
-import {useState} from "react";
-import {Loader2, CheckCircle, RefreshCw, Check} from "lucide-react";
+import { useState } from "react";
+import { Loader2, RefreshCw } from "lucide-react";
 
-import {CredentialsForm} from "./credentials-form";
-
-import {WebhookConfig} from "@/components/webhook-config";
+import { WebhookConfig } from "@/components/webhook-config";
 import {
   Card,
   CardContent,
@@ -14,13 +12,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {IntegrationStatus} from "@/app/(index)/integration/components/integration-status";
-import {TestDonation} from "@/app/(index)/integration/components/test-donation";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { IntegrationStatus } from "@/app/(index)/integration/components/integration-status";
+import { TestDonation } from "@/app/(index)/integration/components/test-donation";
+
+import { CredentialsForm } from "./credentials-form";
 
 interface IntegrationPageClientProps {
   initialStatus: {
@@ -32,7 +29,7 @@ interface IntegrationPageClientProps {
   };
 }
 
-export function IntegrationPageClient({initialStatus}: IntegrationPageClientProps) {
+export function IntegrationPageClient({ initialStatus }: IntegrationPageClientProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [integrationStatus, setIntegrationStatus] = useState(initialStatus);
 

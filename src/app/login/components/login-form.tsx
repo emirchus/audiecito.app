@@ -2,18 +2,19 @@
 
 import type React from "react";
 
-import {useState} from "react";
-import {useRouter} from "next/navigation";
-import {AlertCircle, Loader2} from "lucide-react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { AlertCircle, Loader2 } from "lucide-react";
+import Image from "next/image";
 
-import {cn} from "@/lib/utils";
-import {Button} from "@/components/ui/button";
-import {Card, CardContent} from "@/components/ui/card";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {Alert, AlertDescription} from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export function LoginForm({className, ...props}: React.ComponentProps<"div">) {
+export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -173,10 +174,12 @@ export function LoginForm({className, ...props}: React.ComponentProps<"div">) {
             </div>
           </form>
           <div className="bg-muted relative hidden h-full md:block">
-            <img
+            <Image
               alt="Imagen"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+              height={500}
               src="/login.png"
+              width={500}
             />
           </div>
         </CardContent>

@@ -1,15 +1,15 @@
 "use client";
 
-import type {Donation} from "@/lib/supabase";
+import type { Donation } from "@/lib/supabase";
 
-import {useEffect, useState} from "react";
-import {useSearchParams} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface SuccessDetailsProps {
   className?: string;
 }
 
-export function SuccessDetails({className}: SuccessDetailsProps) {
+export function SuccessDetails({ className }: SuccessDetailsProps) {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
   const [donation, setDonation] = useState<Donation | null>(null);
@@ -66,7 +66,7 @@ export function SuccessDetails({className}: SuccessDetailsProps) {
 
   if (isLoading) {
     return (
-      <div className={`rounded-md bg-muted p-4 text-center ${className}`}>
+      <div className={`bg-muted rounded-md p-4 text-center ${className}`}>
         <p>Cargando detalles de la donación...</p>
       </div>
     );
@@ -74,14 +74,14 @@ export function SuccessDetails({className}: SuccessDetailsProps) {
 
   if (error || !donation) {
     return (
-      <div className={`rounded-md bg-destructive/10 p-4 text-center ${className}`}>
+      <div className={`bg-destructive/10 rounded-md p-4 text-center ${className}`}>
         <p className="text-destructive">{error || "No se encontraron detalles de la donación"}</p>
       </div>
     );
   }
 
   return (
-    <div className={`rounded-md bg-muted p-4 text-left ${className}`}>
+    <div className={`bg-muted rounded-md p-4 text-left ${className}`}>
       <h3 className="mb-2 font-medium">Detalles de la Donación</h3>
       <p className="text-sm">
         Monto: <span className="font-medium">${donation.amount}</span>

@@ -11,8 +11,7 @@ CREATE TABLE donation_status_history (
 
 -- Crear índice para búsquedas eficientes
 CREATE INDEX idx_donation_status_history_donation_id ON donation_status_history(donation_id);
-`
+`;
 
-console.log("SQL para crear la tabla de historial de estados:")
-console.log(createStatusHistoryTable)
-
+console.log("SQL para crear la tabla de historial de estados:");
+console.log(createStatusHistoryTable);

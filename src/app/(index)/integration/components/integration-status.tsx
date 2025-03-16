@@ -1,8 +1,8 @@
-import {CheckCircle, XCircle, AlertTriangle, Clock} from "lucide-react";
-import {format} from "date-fns";
-import {es} from "date-fns/locale";
+import { CheckCircle, XCircle, AlertTriangle, Clock } from "lucide-react";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
-import {Badge} from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 interface IntegrationStatusProps {
   status: {
@@ -15,7 +15,7 @@ interface IntegrationStatusProps {
   isLoading: boolean;
 }
 
-export function IntegrationStatus({status, isLoading}: IntegrationStatusProps) {
+export function IntegrationStatus({ status, isLoading }: IntegrationStatusProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -46,10 +46,10 @@ export function IntegrationStatus({status, isLoading}: IntegrationStatusProps) {
       </div>
 
       {status.lastChecked && (
-        <div className="border-t pt-2 text-xs text-muted-foreground">
+        <div className="text-muted-foreground border-t pt-2 text-xs">
           <Clock className="mr-1 inline-block h-3 w-3" />
           Última verificación:{" "}
-          {format(new Date(status.lastChecked), "dd/MM/yyyy HH:mm:ss", {locale: es})}
+          {format(new Date(status.lastChecked), "dd/MM/yyyy HH:mm:ss", { locale: es })}
         </div>
       )}
     </div>
@@ -82,7 +82,7 @@ function StatusBadge({
   return <Badge variant="destructive">{inactiveText}</Badge>;
 }
 
-function StatusIndicator({isActive, isLoading}: {isActive: boolean; isLoading: boolean}) {
+function StatusIndicator({ isActive, isLoading }: { isActive: boolean; isLoading: boolean }) {
   if (isLoading) {
     return (
       <span className="flex items-center text-gray-400">

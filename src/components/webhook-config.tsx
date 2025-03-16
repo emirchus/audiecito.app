@@ -1,19 +1,19 @@
 "use client";
 
-import {useState, useEffect} from "react";
-import {Loader2, CheckCircle, AlertCircle, Copy, ExternalLink} from "lucide-react";
+import { useState, useEffect } from "react";
+import { Loader2, CheckCircle, AlertCircle, Copy, ExternalLink } from "lucide-react";
 
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface WebhookConfigProps {
   isConfigured: boolean;
   refreshStatus: () => Promise<void>;
 }
 
-export function WebhookConfig({isConfigured, refreshStatus}: WebhookConfigProps) {
+export function WebhookConfig({ isConfigured, refreshStatus }: WebhookConfigProps) {
   const [webhookUrl, setWebhookUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,6 +66,7 @@ export function WebhookConfig({isConfigured, refreshStatus}: WebhookConfigProps)
         setTimeout(() => setSuccess(null), 3000);
       })
       .catch((err) => {
+        console.error("Error al copiar la URL:", err);
         setError("Error al copiar la URL");
         setTimeout(() => setError(null), 3000);
       });
@@ -99,18 +100,18 @@ export function WebhookConfig({isConfigured, refreshStatus}: WebhookConfigProps)
             <Copy className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-muted-foreground text-xs">
           Esta es la URL que debes configurar en Mercado Pago para recibir notificaciones.
         </p>
       </div>
 
       <div className="space-y-2">
         <h3 className="text-sm font-medium">Configuración Manual</h3>
-        <ol className="list-inside list-decimal space-y-2 text-sm text-muted-foreground">
+        <ol className="text-muted-foreground list-inside list-decimal space-y-2 text-sm">
           <li>
             Inicia sesión en tu cuenta de{" "}
             <a
-              className="inline-flex items-center text-primary hover:underline"
+              className="text-primary inline-flex items-center hover:underline"
               href="https://www.mercadopago.com.ar/developers/panel"
               rel="noopener noreferrer"
               target="_blank"
@@ -128,7 +129,7 @@ export function WebhookConfig({isConfigured, refreshStatus}: WebhookConfigProps)
 
       <div className="space-y-2">
         <h3 className="text-sm font-medium">Configuración Automática</h3>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-muted-foreground text-xs">
           También puedes configurar el webhook automáticamente haciendo clic en el botón de abajo.
           Esto requiere que hayas configurado correctamente el Access Token.
         </p>

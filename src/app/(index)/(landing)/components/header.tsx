@@ -1,23 +1,19 @@
-"use client";
-import {Menu, Mic, X} from "lucide-react";
-import {useState} from "react";
+import { Mic } from "lucide-react";
 import Link from "next/link";
 
-import {AccountButtons} from "./action-buttons";
+import { AccountButtons } from "./action-buttons";
 
 const menuItems = [
-  {name: "Streamers", href: "#"},
-  {name: "Audiecito", href: "#"},
+  { name: "Streamers", href: "#" },
+  { name: "Audiecito", href: "#" },
 ];
 
 export function Header() {
-  const [menuState, setMenuState] = useState(false);
-
   return (
     <header>
       <nav
         className="bg-background fixed z-20 w-full border-b border-dashed backdrop-blur md:relative lg:dark:bg-transparent"
-        data-state={menuState && "active"}
+        data-state="inactive"
       >
         <div className="m-auto max-w-5xl px-6 lg:px-0">
           <div className="flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
@@ -26,7 +22,7 @@ export function Header() {
                 <Mic className="size-4" />
               </Link>
 
-              <button
+              {/* <button
                 aria-label={menuState == true ? "Close Menu" : "Open Menu"}
                 className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
                 type="button"
@@ -34,7 +30,7 @@ export function Header() {
               >
                 <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
                 <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
-              </button>
+              </button> */}
             </div>
 
             <div className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">

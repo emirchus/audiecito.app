@@ -1,15 +1,15 @@
 "use client";
 
-import {useState, useRef} from "react";
-import {Mic, Square} from "lucide-react";
+import { useState, useRef } from "react";
+import { Mic, Square } from "lucide-react";
 
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 interface AudioRecorderProps {
   onAudioRecorded: (blob: Blob | null) => void;
 }
 
-export function AudioRecorder({onAudioRecorded}: AudioRecorderProps) {
+export function AudioRecorder({ onAudioRecorded }: AudioRecorderProps) {
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -18,7 +18,7 @@ export function AudioRecorder({onAudioRecorded}: AudioRecorderProps) {
   // Start recording audio
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
 
       mediaRecorderRef.current = mediaRecorder;
@@ -31,7 +31,7 @@ export function AudioRecorder({onAudioRecorded}: AudioRecorderProps) {
       };
 
       mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunksRef.current, {type: "audio/wav"});
+        const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
         const audioUrl = URL.createObjectURL(audioBlob);
 
         setAudioUrl(audioUrl);
@@ -78,7 +78,7 @@ export function AudioRecorder({onAudioRecorded}: AudioRecorderProps) {
       )}
 
       {audioUrl && (
-        <div className="w-full rounded-md border bg-muted p-3">
+        <div className="bg-muted w-full rounded-md border p-3">
           <audio controls className="w-full" src={audioUrl}>
             <track kind="captions" src={audioUrl} />
           </audio>

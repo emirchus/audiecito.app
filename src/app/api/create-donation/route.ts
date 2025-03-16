@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 // Assume createDonationRecord is imported or defined elsewhere
 // For example:
@@ -23,7 +23,7 @@ async function createDonationRecord({
   external_reference: string;
 }) {
   // In a real application, this would interact with your Supabase database
-  console.log("Creating donation record:", {
+  console.info("Creating donation record:", {
     amount,
     username,
     is_anonymous,
@@ -40,7 +40,7 @@ async function createDonationRecord({
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export async function POST(req: Request) {
-  const {amount, isAnonymous, username, audioUrl} = await req.json();
+  const { amount, isAnonymous, username, audioUrl } = await req.json();
 
   // Modificar la parte donde se crea el registro de donación en Supabase
 
@@ -92,8 +92,8 @@ export async function POST(req: Request) {
   // const preference = await mercadopago.preferences.create(preferenceData);
   // return NextResponse.json({ preferenceId: preference.body.id });
 
-  return new Response(JSON.stringify({preferenceData}), {
-    headers: {"Content-Type": "application/json"},
+  return new Response(JSON.stringify({ preferenceData }), {
+    headers: { "Content-Type": "application/json" },
     status: 200,
   });
 }

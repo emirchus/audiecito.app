@@ -1,13 +1,13 @@
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
-import {signInWithEmailAndPasswordAction} from "@/lib/auth";
+import { signInWithEmailAndPasswordAction } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
-    const {email, password} = await request.json();
+    const { email, password } = await request.json();
 
     if (!email || !password) {
-      return NextResponse.json({error: "Email y contraseña son obligatorios"}, {status: 400});
+      return NextResponse.json({ error: "Email y contraseña son obligatorios" }, { status: 400 });
     }
 
     // En una implementación real, verificarías las credenciales
@@ -18,12 +18,12 @@ export async function POST(request: Request) {
     const session = await signInWithEmailAndPasswordAction(email, password);
 
     if (typeof session === "string") {
-      return NextResponse.json({error: session}, {status: 401});
+      return NextResponse.json({ error: session }, { status: 401 });
     }
 
     // Devolver la sesión
-    return NextResponse.json({success: true, session});
+    return NextResponse.json({ success: true, session });
   } catch (error) {
-    return NextResponse.json({error: "Error al iniciar sesión"}, {status: 500});
+    return NextResponse.json({ error: "Error al iniciar sesión" }, { status: 500 });
   }
 }

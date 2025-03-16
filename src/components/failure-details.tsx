@@ -1,15 +1,15 @@
 "use client";
 
-import type {Donation} from "@/lib/supabase";
+import type { Donation } from "@/lib/supabase";
 
-import {useEffect, useState} from "react";
-import {useSearchParams} from "next/navigation";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface FailureDetailsProps {
   className?: string;
 }
 
-export function FailureDetails({className}: FailureDetailsProps) {
+export function FailureDetails({ className }: FailureDetailsProps) {
   const searchParams = useSearchParams();
   const [donation, setDonation] = useState<Donation | null>(null);
   const [errorDetails, setErrorDetails] = useState({
@@ -74,16 +74,16 @@ export function FailureDetails({className}: FailureDetailsProps) {
   }, [searchParams]);
 
   return (
-    <div className={`rounded-md bg-destructive/10 p-4 text-left ${className}`}>
-      <p className="text-sm text-destructive">{errorDetails.errorMessage}</p>
+    <div className={`bg-destructive/10 rounded-md p-4 text-left ${className}`}>
+      <p className="text-destructive text-sm">{errorDetails.errorMessage}</p>
       {errorDetails.errorCode && (
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="text-muted-foreground mt-2 text-xs">
           Código de error: {errorDetails.errorCode}
         </p>
       )}
 
       {donation && (
-        <div className="mt-3 border-t border-destructive/20 pt-3">
+        <div className="border-destructive/20 mt-3 border-t pt-3">
           <p className="text-sm">
             Monto: <span className="font-medium">${donation.amount}</span>
           </p>

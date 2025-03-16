@@ -1,12 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import {Cpu, Lock, Sparkles, Zap} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 import FeaturesSection from "./components/features";
-
-import {Button} from "@/components/ui/button";
-import {Card, CardContent, CardHeader} from "@/components/ui/card";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 
 export default function HeroSection() {
   return (

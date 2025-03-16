@@ -2,15 +2,15 @@
 
 import "server-only";
 
-import {AuthError} from "@supabase/supabase-js";
-import {revalidatePath} from "next/cache";
-import {redirect} from "next/navigation";
+import { AuthError } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-import {createClient} from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
 export const signInWithEmailAndPasswordAction = async (email: string, password: string) => {
   const supabase = await createClient();
-  const {error, data} = await supabase.auth.signInWithPassword({
+  const { error, data } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
@@ -42,7 +42,7 @@ export type UserSession = NonNullable<Awaited<NonNullable<ReturnType<typeof getS
 export const getSession = async () => {
   const supabase = await createClient();
   const {
-    data: {user},
+    data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) {
@@ -50,7 +50,7 @@ export const getSession = async () => {
   }
 
   // Obtener el perfil del usuario
-  const {data: profile} = await supabase.from("profiles").select("*").eq("id", user.id).single();
+  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single();
 
   return {
     user: {

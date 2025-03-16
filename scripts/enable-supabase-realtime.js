@@ -8,8 +8,7 @@ BEGIN;
   DROP PUBLICATION IF EXISTS supabase_realtime;
   CREATE PUBLICATION supabase_realtime FOR TABLE donations;
 COMMIT;
-`
+`;
 
-console.log("SQL para habilitar Realtime en la tabla de donaciones:")
-console.log(enableRealtimeForDonations)
-
+console.log("SQL para habilitar Realtime en la tabla de donaciones:");
+console.log(enableRealtimeForDonations);

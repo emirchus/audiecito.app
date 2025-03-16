@@ -1,11 +1,11 @@
 "use client";
 
-import type {Donation} from "@/lib/supabase";
+import type { Donation } from "@/lib/supabase";
 
-import {useEffect, useState, useRef} from "react";
-import {createClient} from "@supabase/supabase-js";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { createClient } from "@supabase/supabase-js";
 
-import {DonationAlert} from "@/components/donation-alert";
+import { DonationAlert } from "@/components/donation-alert";
 
 export default function OBSWidget() {
   const [donations, setDonations] = useState<Donation[]>([]);
@@ -20,7 +20,7 @@ export default function OBSWidget() {
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
   // Procesar la cola de donaciones
-  const processDonationQueue = async () => {
+  const processDonationQueue = useCallback(async () => {
     if (processingRef.current || donationQueueRef.current.length === 0) {
       return;
     }
@@ -50,35 +50,38 @@ export default function OBSWidget() {
     } else {
       processingRef.current = false;
     }
-  };
+  }, []);
 
   // Agregar una donación a la cola
-  const addToQueue = (donation: Donation) => {
-    // Solo agregar donaciones aprobadas y que no estén ya en la cola
-    if (
-      donation.payment_status === "approved" &&
-      !donationQueueRef.current.some((d) => d.id === donation.id) &&
-      (!currentDonation || currentDonation.id !== donation.id)
-    ) {
-      donationQueueRef.current.push(donation);
-      setDonations([...donationQueueRef.current]); // Actualizar estado para UI
+  const addToQueue = useCallback(
+    (donation: Donation) => {
+      // Solo agregar donaciones aprobadas y que no estén ya en la cola
+      if (
+        donation.payment_status === "approved" &&
+        !donationQueueRef.current.some((d) => d.id === donation.id) &&
+        (!currentDonation || currentDonation.id !== donation.id)
+      ) {
+        donationQueueRef.current.push(donation);
+        setDonations([...donationQueueRef.current]); // Actualizar estado para UI
 
-      // Iniciar procesamiento si no está en curso
-      if (!processingRef.current) {
-        processDonationQueue();
+        // Iniciar procesamiento si no está en curso
+        if (!processingRef.current) {
+          processDonationQueue();
+        }
       }
-    }
-  };
+    },
+    [currentDonation, processDonationQueue],
+  );
 
   // Escuchar cambios en tiempo real
   useEffect(() => {
     // Cargar donaciones aprobadas recientes al inicio
     const loadRecentDonations = async () => {
-      const {data} = await supabase
+      const { data } = await supabase
         .from("donations")
         .select("*")
         .eq("payment_status", "approved")
-        .order("created_at", {ascending: false})
+        .order("created_at", { ascending: false })
         .limit(5);
 
       if (data && data.length > 0) {

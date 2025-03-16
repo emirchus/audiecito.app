@@ -94,8 +94,7 @@ USING (true);
 CREATE POLICY "Allow authenticated users to insert environment_variables" ON environment_variables
 FOR INSERT TO authenticated
 WITH CHECK (true);
-`
+`;
 
-console.log("SQL para crear las tablas de integración:")
-console.log(createIntegrationTables)
-
+console.log("SQL para crear las tablas de integración:");
+console.log(createIntegrationTables);

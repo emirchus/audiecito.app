@@ -15,8 +15,7 @@ CREATE TABLE webhook_retry_queue (
 -- Crear índice para búsquedas eficientes
 CREATE INDEX idx_webhook_retry_queue_next_retry ON webhook_retry_queue(next_retry_at) 
 WHERE processed = FALSE;
-`
+`;
 
-console.log("SQL para crear la tabla de cola de reintentos:")
-console.log(createRetryQueueTable)
-
+console.log("SQL para crear la tabla de cola de reintentos:");
+console.log(createRetryQueueTable);

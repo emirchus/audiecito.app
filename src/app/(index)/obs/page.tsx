@@ -1,7 +1,7 @@
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
-import {getSession} from "@/lib/auth";
-import {OBSConfigPage} from "@/components/obs-config-page";
+import { getSession } from "@/lib/auth";
+import { OBSConfigPage } from "@/components/obs-config-page";
 
 export default async function OBSConfigRoute() {
   // Verificar si el usuario está autenticado

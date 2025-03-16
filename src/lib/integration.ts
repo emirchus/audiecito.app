@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
-import {createClient} from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";
 
 // Tipo para el estado de la integración
 interface IntegrationStatus {
@@ -17,10 +17,10 @@ export const getIntegrationStatus = async (): Promise<IntegrationStatus> => {
   const supabase = await createClient();
 
   // Obtener el estado de la integración
-  const {data: status} = await supabase.from("integration_status").select("*").single();
+  const { data: status } = await supabase.from("integration_status").select("*").single();
 
   // Obtener las credenciales
-  const {data: credentials} = await supabase.from("integration_credentials").select("*").single();
+  const { data: credentials } = await supabase.from("integration_credentials").select("*").single();
 
   return {
     connected: status?.connected ?? false,
@@ -32,11 +32,14 @@ export const getIntegrationStatus = async (): Promise<IntegrationStatus> => {
 };
 
 // Función para guardar el estado de la integración
-async function saveIntegrationStatus(status: IntegrationStatus): Promise<void> {
+export async function saveIntegrationStatus(status: IntegrationStatus): Promise<void> {
   try {
     const supabase = await createClient();
     // Verificar si ya existe un registro
-    const {data: existingStatus} = await supabase.from("integration_status").select("id").single();
+    const { data: existingStatus } = await supabase
+      .from("integration_status")
+      .select("id")
+      .single();
 
     if (existingStatus) {
       // Actualizar el registro existente
@@ -86,7 +89,7 @@ async function verifyAccessToken(accessToken: string): Promise<boolean> {
 }
 
 // Función para verificar el webhook
-async function verifyWebhook(accessToken: string): Promise<boolean> {
+export async function verifyWebhook(accessToken: string): Promise<boolean> {
   try {
     if (!accessToken) return false;
 
@@ -143,7 +146,7 @@ export async function saveCredentials(accessToken: string, publicKey: string): P
   try {
     const supabase = await createClient();
     // Verificar si ya existen credenciales
-    const {data: existingCredentials} = await supabase
+    const { data: existingCredentials } = await supabase
       .from("integration_credentials")
       .select("id")
       .single();
@@ -192,11 +195,11 @@ export async function saveCredentials(accessToken: string, publicKey: string): P
 // Función para configurar el webhook
 export async function configureWebhook(
   webhookUrl: string,
-): Promise<{success: boolean; error?: string; webhookId?: string}> {
+): Promise<{ success: boolean; error?: string; webhookId?: string }> {
   try {
     const supabase = await createClient();
     // Obtener el Access Token
-    const {data: credentials} = await supabase
+    const { data: credentials } = await supabase
       .from("integration_credentials")
       .select("access_token")
       .single();
@@ -277,11 +280,14 @@ export async function configureWebhook(
 // Función para crear una donación de prueba
 export async function createTestDonation(
   amount: number,
-): Promise<{success: boolean; error?: string; checkoutUrl?: string}> {
+): Promise<{ success: boolean; error?: string; checkoutUrl?: string }> {
   try {
     const supabase = await createClient();
     // Obtener las credenciales
-    const {data: credentials} = await supabase.from("integration_credentials").select("*").single();
+    const { data: credentials } = await supabase
+      .from("integration_credentials")
+      .select("*")
+      .single();
 
     if (!credentials) {
       return {
@@ -294,7 +300,7 @@ export async function createTestDonation(
     const externalReference = uuidv4();
 
     // Crear un registro de donación en Supabase
-    const {data: donation, error: donationError} = await supabase
+    const { data: donation, error: donationError } = await supabase
       .from("donations")
       .insert({
         amount,

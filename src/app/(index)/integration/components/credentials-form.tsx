@@ -1,22 +1,22 @@
 "use client";
-import {CheckCircle, Check} from "lucide-react";
-import {useState} from "react";
+import { CheckCircle, Check } from "lucide-react";
+import { useState } from "react";
 
-import {Alert, AlertTitle, AlertDescription} from "@/components/ui/alert";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {useAuth} from "@/provider/auth-provider";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAuth } from "@/provider/auth-provider";
 
 export // Componente para el formulario de credenciales
 function CredentialsForm({
-  refreshStatus,
+  refreshStatus: _refreshStatus,
   hasCredentials,
 }: {
   refreshStatus: () => Promise<void>;
   hasCredentials: boolean;
 }) {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [accessToken, setAccessToken] = useState("");
   const [publicKey, setPublicKey] = useState("");
 

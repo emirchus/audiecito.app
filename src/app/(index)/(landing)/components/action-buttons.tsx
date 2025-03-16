@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import {UserDropdown} from "./user-dropdown";
+import { Button } from "@/components/ui/button";
+import { getSession } from "@/lib/auth";
 
-import {Button} from "@/components/ui/button";
-import {getSession} from "@/lib/auth";
+import { UserDropdown } from "./user-dropdown";
 
 export async function AccountButtons() {
   const session = await getSession();
@@ -25,5 +25,5 @@ export async function AccountButtons() {
     );
   }
 
-  return <p>xd</p>;
+  return <UserDropdown />;
 }

@@ -1,11 +1,11 @@
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
-import {getSession} from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 
 export default async function MercadoPagoCallback({
   searchParams,
 }: {
-  searchParams: {code?: string; state?: string};
+  searchParams: { code?: string; state?: string };
 }) {
   // Verificar si el usuario está autenticado
   const session = await getSession();

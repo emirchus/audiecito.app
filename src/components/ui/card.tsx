@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
-function Card({className, ...props}: React.ComponentProps<"div">) {
+function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
@@ -15,7 +15,7 @@ function Card({className, ...props}: React.ComponentProps<"div">) {
   );
 }
 
-function CardHeader({className, ...props}: React.ComponentProps<"div">) {
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn("flex flex-col gap-1.5 px-6", className)}
@@ -25,7 +25,7 @@ function CardHeader({className, ...props}: React.ComponentProps<"div">) {
   );
 }
 
-function CardTitle({className, ...props}: React.ComponentProps<"div">) {
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn("leading-none font-semibold", className)}
@@ -35,7 +35,7 @@ function CardTitle({className, ...props}: React.ComponentProps<"div">) {
   );
 }
 
-function CardDescription({className, ...props}: React.ComponentProps<"div">) {
+function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn("text-muted-foreground text-sm", className)}
@@ -45,14 +45,14 @@ function CardDescription({className, ...props}: React.ComponentProps<"div">) {
   );
 }
 
-function CardContent({className, ...props}: React.ComponentProps<"div">) {
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
   return <div className={cn("px-6", className)} data-slot="card-content" {...props} />;
 }
 
-function CardFooter({className, ...props}: React.ComponentProps<"div">) {
+function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex items-center px-6", className)} data-slot="card-footer" {...props} />
   );
 }
 
-export {Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent};
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent };

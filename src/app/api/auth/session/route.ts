@@ -1,6 +1,6 @@
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
-import {getSession} from "@/lib/auth";
+import { getSession } from "@/lib/auth";
 
 export async function GET() {
   try {
@@ -8,10 +8,10 @@ export async function GET() {
     const session = await getSession();
 
     // Devolver la sesión como JSON
-    return NextResponse.json({session});
+    return NextResponse.json({ session });
   } catch (error) {
     console.error("Error al obtener la sesión:", error);
 
-    return NextResponse.json({error: "Error al obtener la sesión"}, {status: 500});
+    return NextResponse.json({ error: "Error al obtener la sesión" }, { status: 500 });
   }
 }

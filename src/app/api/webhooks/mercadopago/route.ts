@@ -1,11 +1,9 @@
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
-import {updateDonationStatus, getDonationByExternalReference} from "@/lib/supabase";
-import {saveToRetryQueue} from "@/lib/retry-queue";
-import {notifyDonor} from "@/lib/notifications";
+import { updateDonationStatus, getDonationByExternalReference } from "@/lib/supabase";
 
 // Función para verificar la firma del webhook (en un entorno de producción)
-async function verifyWebhookSignature(request: Request): Promise<boolean> {
+async function verifyWebhookSignature(_request: Request): Promise<boolean> {
   // En producción, deberías verificar la firma del webhook usando los headers
   // proporcionados por Mercado Pago y tu clave secreta
   // https://www.mercadopago.com.ar/developers/es/docs/checkout-api/webhooks/webhooks-v2
@@ -22,20 +20,20 @@ export async function POST(request: Request) {
     if (!isValid) {
       console.error("Firma de webhook inválida");
 
-      return NextResponse.json({error: "Firma inválida"}, {status: 401});
+      return NextResponse.json({ error: "Firma inválida" }, { status: 401 });
     }
 
     // Obtener los datos del webhook
     const webhookData = await request.json();
 
-    console.log("Webhook recibido:", JSON.stringify(webhookData, null, 2));
+    console.info("Webhook recibido:", JSON.stringify(webhookData, null, 2));
 
     // Procesar según el tipo de notificación
     if (webhookData.type === "payment") {
       const paymentId = webhookData.data?.id;
 
       if (!paymentId) {
-        return NextResponse.json({error: "ID de pago no proporcionado"}, {status: 400});
+        return NextResponse.json({ error: "ID de pago no proporcionado" }, { status: 400 });
       }
 
       // Obtener los detalles del pago desde Mercado Pago
@@ -43,13 +41,13 @@ export async function POST(request: Request) {
 
       if (!paymentDetails) {
         // Guardar en la cola de reintentos si no se pudieron obtener los detalles
-        await saveToRetryQueue({
-          payment_id: paymentId.toString(),
-          external_reference: webhookData.data?.external_reference || "unknown",
-          status: "pending",
-          attempt: 1,
-          last_error: "No se pudieron obtener los detalles del pago",
-        });
+        // await saveToRetryQueue({
+        //   payment_id: paymentId.toString(),
+        //   external_reference: webhookData.data?.external_reference || "unknown",
+        //   status: "pending",
+        //   attempt: 1,
+        //   last_error: "No se pudieron obtener los detalles del pago",
+        // });
 
         return NextResponse.json({
           success: true,
@@ -61,7 +59,7 @@ export async function POST(request: Request) {
       const externalReference = paymentDetails.external_reference;
 
       if (!externalReference) {
-        return NextResponse.json({error: "Referencia externa no encontrada"}, {status: 400});
+        return NextResponse.json({ error: "Referencia externa no encontrada" }, { status: 400 });
       }
 
       // Mapear el estado del pago de Mercado Pago al estado de nuestra aplicación
@@ -72,13 +70,13 @@ export async function POST(request: Request) {
 
       if (!donation) {
         // Guardar en la cola de reintentos si no se encontró la donación
-        await saveToRetryQueue({
-          payment_id: paymentId.toString(),
-          external_reference: externalReference,
-          status,
-          attempt: 1,
-          last_error: "Donación no encontrada",
-        });
+        // await saveToRetryQueue({
+        //   payment_id: paymentId.toString(),
+        //   external_reference: externalReference,
+        //   status,
+        //   attempt: 1,
+        //   last_error: "Donación no encontrada",
+        // });
 
         return NextResponse.json({
           success: true,
@@ -91,13 +89,13 @@ export async function POST(request: Request) {
 
       if (!success) {
         // Guardar en la cola de reintentos si falló la actualización
-        await saveToRetryQueue({
-          payment_id: paymentId.toString(),
-          external_reference: externalReference,
-          status,
-          attempt: 1,
-          last_error: "Error al actualizar el estado de la donación",
-        });
+        // await saveToRetryQueue({
+        //   payment_id: paymentId.toString(),
+        //   external_reference: externalReference,
+        //   status,
+        //   attempt: 1,
+        //   last_error: "Error al actualizar el estado de la donación",
+        // });
 
         return NextResponse.json({
           success: true,
@@ -107,7 +105,7 @@ export async function POST(request: Request) {
 
       // Si el estado cambió a aprobado o rechazado, notificar al donante
       if (status !== "pending" && donation.payment_status !== status) {
-        await notifyDonor(donation, status);
+        // await notifyDonor(donation, status);
       }
 
       return NextResponse.json({

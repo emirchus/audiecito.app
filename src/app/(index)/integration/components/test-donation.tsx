@@ -1,18 +1,18 @@
 "use client";
 
-import {useState} from "react";
-import {Loader2, AlertCircle, CheckCircle} from "lucide-react";
+import { useState } from "react";
+import { Loader2, AlertCircle, CheckCircle } from "lucide-react";
 
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface TestDonationProps {
   isIntegrationReady: boolean;
 }
 
-export function TestDonation({isIntegrationReady}: TestDonationProps) {
+export function TestDonation({ isIntegrationReady }: TestDonationProps) {
   const [amount, setAmount] = useState("10");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -87,7 +87,7 @@ export function TestDonation({isIntegrationReady}: TestDonationProps) {
       <div className="space-y-2">
         <Label htmlFor="testAmount">Monto de prueba (ARS)</Label>
         <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+          <span className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500">$</span>
           <Input
             className="pl-8"
             id="testAmount"
