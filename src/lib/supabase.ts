@@ -2,9 +2,6 @@
 
 import { createClient } from "./supabase/server";
 
-// Agregar la definición del tipo Donation si no existe
-// Agregar al inicio del archivo (después de las importaciones):
-
 export interface Donation {
   id?: string;
   amount: number;
