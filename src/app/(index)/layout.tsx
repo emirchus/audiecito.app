@@ -10,7 +10,6 @@ export default function CategoryLayout({
     <>
       <Header />
       <>{children}</>
-
       <Footer />
     </>
   );

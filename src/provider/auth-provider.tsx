@@ -1,10 +1,10 @@
 "use client";
 
+import { useSupabase } from "@emirchus/use-supabase";
 import { Session, User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
-import { supabase } from "@/lib/supabase/client";
 import { signOutAction } from "@/lib/auth";
 
 export interface AuthContextValue {
@@ -25,6 +25,7 @@ export interface AuthProviderProps {
 }
 
 export function AuthProvider({ children, user: cachedUser }: AuthProviderProps) {
+  const { auth } = useSupabase();
   const [user, setUser] = useState<User | null | undefined>(cachedUser);
   const [session, setSession] = useState<Session | null>(null);
   const router = useRouter();
@@ -37,7 +38,6 @@ export function AuthProvider({ children, user: cachedUser }: AuthProviderProps) 
   }, [router]);
 
   useEffect(() => {
-    const auth = supabase.auth;
     const subscription = auth.onAuthStateChange(async (event) => {
       switch (event) {
         case "INITIAL_SESSION":
@@ -45,7 +45,6 @@ export function AuthProvider({ children, user: cachedUser }: AuthProviderProps) 
         case "TOKEN_REFRESHED":
         case "SIGNED_IN":
           if (!session) return;
-
           setUser(session.user);
 
           break;
@@ -57,17 +56,17 @@ export function AuthProvider({ children, user: cachedUser }: AuthProviderProps) 
     });
 
     return () => subscription.data.subscription.unsubscribe();
-  }, [session]);
+  }, [auth, session]);
 
   useEffect(() => {
     const fetchSession = async () => {
-      const { data } = await supabase.auth.getSession();
+      const { data } = await auth.getSession();
 
       setSession(data.session);
     };
 
     fetchSession();
-  }, []);
+  }, [auth]);
 
   return (
     <AuthContext.Provider

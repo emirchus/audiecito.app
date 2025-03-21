@@ -1,6 +1,7 @@
 "use client";
-import { User, LogOut } from "lucide-react";
+import { User, LogOut, Settings, Proportions } from "lucide-react";
 import React from "react";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,12 +12,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { signOutAction } from "@/lib/auth";
 import { useAuth } from "@/provider/auth-provider";
 
 export function UserDropdown() {
-  const { user } = useAuth();
+  const { logOut, user } = useAuth();
 
+  console.log(user);
   if (!user) {
     return null;
   }
@@ -24,9 +25,9 @@ export function UserDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="bg-primary/50" size="sm">
+        <Button size="sm">
           <User className="size-4" />
-          <span>Dashboard</span>
+          <span className="text-xs">Dashboard</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -35,8 +36,21 @@ export function UserDropdown() {
           {user?.email}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOutAction()}>
-          <LogOut className="mr-2 h-4 w-4" />
+        <DropdownMenuItem asChild>
+          <Link href="/integrations">
+            <Settings className="size-4" />
+            <span>Integraciones</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/widgets">
+            <Proportions className="size-4" />
+            <span>Widgets</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => logOut()}>
+          <LogOut className="size-4" />
           <span>Cerrar Sesión</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

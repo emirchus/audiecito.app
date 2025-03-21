@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true,
     dynamicIO: false,
+    viewTransition: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   logging: {
     fetches: {

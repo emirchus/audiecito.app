@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Loader2, RefreshCw } from "lucide-react";
 
+import { CredentialsForm } from "./credentials-form";
+
 import { WebhookConfig } from "@/components/webhook-config";
 import {
   Card,
@@ -14,10 +16,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { IntegrationStatus } from "@/app/(index)/integration/components/integration-status";
-import { TestDonation } from "@/app/(index)/integration/components/test-donation";
-
-import { CredentialsForm } from "./credentials-form";
+import { IntegrationStatus } from "@/app/(index)/integrations/components/integration-status";
+import { TestDonation } from "@/app/(index)/integrations/components/test-donation";
 
 interface IntegrationPageClientProps {
   initialStatus: {

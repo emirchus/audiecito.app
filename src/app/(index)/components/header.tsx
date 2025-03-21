@@ -1,14 +1,19 @@
 import { Mic } from "lucide-react";
 import Link from "next/link";
 
-import { AccountButtons } from "./action-buttons";
+import { getSession } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
+
+import { UserDropdown } from "./user-dropdown";
 
 const menuItems = [
-  { name: "Streamers", href: "#" },
-  { name: "Audiecito", href: "#" },
+  { name: "Streamers", href: "#streamers" },
+  { name: "Audiecito", href: "#about" },
 ];
 
-export function Header() {
+export async function Header() {
+  const session = await getSession();
+
   return (
     <header>
       <nav
@@ -49,7 +54,26 @@ export function Header() {
                 </ul>
               </div>
 
-              <AccountButtons />
+              {/* <AccountButtons /> */}
+
+              <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit lg:border-l lg:pl-6">
+                {!session ? (
+                  <>
+                    <Button asChild size="sm" variant="outline">
+                      <Link href="/login">
+                        <span>Ingresar</span>
+                      </Link>
+                    </Button>
+                    <Button asChild size="sm">
+                      <Link href="/register">
+                        <span>Crear una cuenta</span>
+                      </Link>
+                    </Button>
+                  </>
+                ) : (
+                  <UserDropdown />
+                )}
+              </div>
             </div>
           </div>
         </div>

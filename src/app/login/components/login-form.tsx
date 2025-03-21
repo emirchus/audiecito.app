@@ -2,8 +2,7 @@
 
 import type React from "react";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRef, useState, useTransition } from "react";
 import { AlertCircle, Loader2 } from "lucide-react";
 import Image from "next/image";
 
@@ -14,52 +13,39 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
+import { signInWithEmailAndPasswordAction } from "../actions/supabase";
+
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, startLoading] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
 
     if (!email || !password) {
       setError("Por favor, completa todos los campos");
 
       return;
     }
-
-    try {
-      setIsLoading(true);
+    startLoading(async () => {
       setError(null);
+      const errorMessage = await signInWithEmailAndPasswordAction(email, password);
 
-      const response = await fetch("/api/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (response.ok) {
-        // Redirigir al inicio
-        router.push("/");
-        router.refresh();
-      } else {
-        const data = await response.json();
-
-        setError(data.error || "Error al iniciar sesión");
+      if (errorMessage) {
+        setError(errorMessage);
+        timeoutRef.current = setTimeout(() => {
+          setError(null);
+        }, 5000);
       }
-    } catch (error) {
-      console.error("Error al iniciar sesión:", error);
-      setError("Error al conectar con el servidor");
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   return (

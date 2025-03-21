@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 import { fontSans, siteConfig } from "@/lib/config";
 import { ThemeProvider } from "@/provider/theme-provider";
+import { SupabaseClientProvider } from "@/provider/supabase-provider";
 
 export const metadata: Metadata = {
   applicationName: siteConfig.name,
@@ -52,11 +53,15 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   return (
-    <html lang="es-AR">
-      <body className={cn("antialiased", fontSans.variable)}>
-        <ThemeProvider>
-          <AuthProvider user={user}>{children}</AuthProvider>
-        </ThemeProvider>
+    <html suppressHydrationWarning lang="es-AR">
+      <body
+        className={cn("bg-background overscroll-none font-sans antialiased", fontSans.variable)}
+      >
+        <SupabaseClientProvider>
+          <ThemeProvider>
+            <AuthProvider user={user}>{children}</AuthProvider>
+          </ThemeProvider>
+        </SupabaseClientProvider>
       </body>
     </html>
   );
