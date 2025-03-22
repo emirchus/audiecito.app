@@ -1,5 +1,7 @@
 "use client";
-import { User, LogOut, Settings, Proportions } from "lucide-react";
+import type { User } from "@supabase/supabase-js";
+
+import { LogOut, Settings, Proportions, UserIcon } from "lucide-react";
 import React from "react";
 import Link from "next/link";
 
@@ -14,19 +16,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/provider/auth-provider";
 
-export function UserDropdown() {
-  const { logOut, user } = useAuth();
+interface Props {
+  user: User;
+}
 
-  console.log(user);
-  if (!user) {
-    return null;
-  }
+export function UserDropdown({ user }: Props) {
+  const { logOut } = useAuth();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button size="sm">
-          <User className="size-4" />
+          <UserIcon className="size-4" />
           <span className="text-xs">Dashboard</span>
         </Button>
       </DropdownMenuTrigger>

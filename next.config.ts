@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
     reactCompiler: true,
     dynamicIO: false,
     viewTransition: true,
+    serverActions: {
+      allowedOrigins: ["gp3bq85x-3000.brs.devtunnels.ms"],
+    },
   },
   eslint: {
     ignoreDuringBuilds: true,

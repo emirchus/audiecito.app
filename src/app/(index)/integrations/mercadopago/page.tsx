@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth";
 export default async function MercadoPagoCallback({
   searchParams,
 }: {
-  searchParams: { code?: string; state?: string };
+  searchParams: Promise<{ code?: string; state?: string }>;
 }) {
   // Verificar si el usuario está autenticado
   const session = await getSession();
@@ -14,8 +14,10 @@ export default async function MercadoPagoCallback({
     redirect("/login");
   }
 
+  const { code, state } = await searchParams;
+
   // Verificar que el código de autorización esté presente
-  if (!searchParams.code) {
+  if (!code) {
     redirect("/integration?error=missing_code");
   }
 
@@ -27,8 +29,8 @@ export default async function MercadoPagoCallback({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        code: searchParams.code,
-        state: searchParams.state,
+        code,
+        state,
       }),
     });
 

@@ -1,5 +1,7 @@
-import { Mic } from "lucide-react";
+import { Mic, Twitter } from "lucide-react";
 import Link from "next/link";
+
+import ThemeToggle from "@/components/theme-toggle";
 
 export function Footer() {
   return (
@@ -24,7 +26,7 @@ export function Footer() {
           <span className="text-muted-foreground order-last block text-center text-sm md:order-first">
             © {new Date().getFullYear()} Audiecito, Todos los derechos reservados
           </span>
-          <div className="order-first flex flex-wrap justify-center gap-6 text-sm md:order-last">
+          <div className="order-first flex flex-wrap items-center justify-center gap-6 text-sm md:order-last">
             <a
               aria-label="X/Twitter"
               className="text-muted-foreground hover:text-primary block"
@@ -32,19 +34,9 @@ export function Footer() {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <svg
-                className="size-6"
-                height="1em"
-                viewBox="0 0 24 24"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10.488 14.651L15.25 21h7l-7.858-10.478L20.93 3h-2.65l-5.117 5.886L8.75 3h-7l7.51 10.015L2.32 21h2.65zM16.25 19L5.75 5h2l10.5 14z"
-                  fill="currentColor"
-                />
-              </svg>
+              <Twitter className="size-4" />
             </a>
+            <ThemeToggle />
           </div>
         </div>
       </div>

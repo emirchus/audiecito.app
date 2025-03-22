@@ -71,7 +71,7 @@ export async function Header() {
                     </Button>
                   </>
                 ) : (
-                  <UserDropdown />
+                  <UserDropdown user={session.user} />
                 )}
               </div>
             </div>

@@ -40,14 +40,14 @@ export default function FeaturesSection() {
             <div className="relative aspect-76/59 rounded-2xl bg-linear-to-b from-zinc-300 to-transparent p-px dark:from-zinc-700">
               <Image
                 alt="payments illustration dark"
-                className="hidden rounded-[15px] dark:block"
+                className="hidden h-full rounded-[15px] object-cover dark:block"
                 height={929}
                 src="/app-dark.png"
                 width={1207}
               />
               <Image
                 alt="payments illustration light"
-                className="rounded-[15px] shadow dark:hidden"
+                className="h-full rounded-[15px] object-cover shadow dark:hidden"
                 height={929}
                 src="/app.png"
                 width={1207}
